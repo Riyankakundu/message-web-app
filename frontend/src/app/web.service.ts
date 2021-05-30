@@ -1,16 +1,40 @@
 import { HttpClient } from '@angular/common/http'
 import { Injectable } from '@angular/core';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { Subject } from 'rxjs';
 
 @Injectable()
 export class WebService {
-    BASE_URL = 'http://localhost:63145/api'
-    constructor(private http: HttpClient) {}
+    BASE_URL = 'http://localhost:63145/api';
+    private messageStore : any = [];
+    private messageSubject = new Subject();
+    messages = this.messageSubject.asObservable();
+    constructor(private http: HttpClient, private sb: MatSnackBar) {
+        this.getMessages();
+    }
     
-    getMessages() {
-        return this.http.get(this.BASE_URL + '/messages').toPromise();
+    getMessages(user? : any) {
+        user = user ? '/' + user : '';
+        this.http.get(this.BASE_URL + '/messages' + user).subscribe( response => {
+            this.messageStore = response;
+            this.messageSubject.next(this.messageStore);
+        }, error => {
+            this.handleError("Unable to get messages.");
+        })
     }
 
-    postMessage(message : any) {
-        return this.http.post(this.BASE_URL + '/messages', message).toPromise();
+    async postMessage(message : any) {
+        try {
+            var response = await this.http.post(this.BASE_URL + '/messages', message).toPromise();
+            this.messageStore.push(response);
+            this.messageSubject.next(this.messageStore);
+        } catch (error) {
+            this.handleError("Unable to post message.");
+        }
+    }
+
+    private handleError(error : any ) {
+        console.error(error);
+        this.sb.open(error, 'close', {duration: 2000});
     }
 }
