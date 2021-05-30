@@ -1,11 +1,12 @@
 import { Component } from '@angular/core';
 import { WebService } from './web.service';
+import { ActivatedRoute } from '@angular/router'
 @Component ({
     selector: 'messages',
     template: `
         <div *ngFor="let message of messages">
             <mat-card class="card">
-                <mat-card-title>
+                <mat-card-title [routerLink]="['/messages', message.owner]" style="cursor: pointer">
                     {{message.owner}}
                 </mat-card-title>
                 <mat-card-content>
@@ -16,11 +17,14 @@ import { WebService } from './web.service';
     `
 })
 export class MessagesComponent {
-    constructor(private webService: WebService) {}
+    messages:any;
+    constructor(public webService: WebService, private route: ActivatedRoute) {}
 
-    async ngOnInit() {
-        var response = await this.webService.getMessages();
-        this.messages = response;
+    ngOnInit() {
+        var name = this.route.snapshot.params.name;
+        this.webService.getMessages(name);
+        this.webService.messages.subscribe(messages => {
+            this.messages =messages;
+        })
     }
-    messages : any = [];
 }

@@ -4,5 +4,5 @@
 html, body { height: 100%; }
 body { background: #eeeeee; }
 .card {
-    margin: 8px;
+    margin-top: 8px;
 }
