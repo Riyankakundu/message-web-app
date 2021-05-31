@@ -19,6 +19,7 @@ import { NavComponent } from './nav.component';
 import { HomeComponent } from './home.component';
 import { LoginComponent } from './login.component';
 import { RegisterComponent } from './register.component';
+import { UserComponent } from './user.component';
 
 var routes :any = [
   {
@@ -40,6 +41,10 @@ var routes :any = [
   {
     path: 'login',
     component: LoginComponent
+  },
+  {
+    path: 'user',
+    component: UserComponent
   }
 ];
 
@@ -51,7 +56,8 @@ var routes :any = [
     NavComponent,
     HomeComponent,
     RegisterComponent,
-    LoginComponent
+    LoginComponent,
+    UserComponent
   ],
   imports: [
     BrowserModule,
