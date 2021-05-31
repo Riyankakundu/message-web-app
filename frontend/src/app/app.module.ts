@@ -10,12 +10,15 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatInputModule } from '@angular/material/input';
 import { WebService } from './web.service';
+import { AuthService } from './auth.service';
 import { HttpClientModule } from '@angular/common/http'
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { NavComponent } from './nav.component';
 import { HomeComponent } from './home.component';
+import { LoginComponent } from './login.component';
+import { RegisterComponent } from './register.component';
 
 var routes :any = [
   {
@@ -29,6 +32,14 @@ var routes :any = [
   {
     path: 'messages/:name',
     component: MessagesComponent
+  },
+  {
+    path: 'register',
+    component: RegisterComponent
+  },
+  {
+    path: 'login',
+    component: LoginComponent
   }
 ];
 
@@ -38,7 +49,9 @@ var routes :any = [
     MessagesComponent,
     NewMessageComponent,
     NavComponent,
-    HomeComponent
+    HomeComponent,
+    RegisterComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
@@ -51,10 +64,12 @@ var routes :any = [
     FormsModule,
     MatSnackBarModule,
     MatToolbarModule,
-    RouterModule.forRoot(routes)
+    RouterModule.forRoot(routes),
+    ReactiveFormsModule
   ],
   providers: [
-    WebService
+    WebService,
+    AuthService
   ],
   bootstrap: [AppComponent]
 })
