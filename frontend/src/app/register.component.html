@@ -1,0 +1,23 @@
+<mat-card class="card">
+    <form [formGroup]="form" (ngSubmit)="onSubmit()">
+        <mat-form-field style="margin: 20px; width: 350px;">
+            <input [ngClass]="{'error': isValid('firstName')}" matInput placeholder="First Name" formControlName="firstName">
+        </mat-form-field>
+        <mat-form-field style="margin: 20px; width: 350px;">
+            <input [ngClass]="{'error': isValid('lastName')}" matInput placeholder="Last Name" formControlName="lastName">
+        </mat-form-field>
+        <mat-form-field style="margin: 20px; width: 350px;">
+            <input [ngClass]="{'error': isValid('email')}" type="email" matInput placeholder="Email" formControlName="email">
+        </mat-form-field>
+        <mat-form-field style="margin: 20px; width: 350px;">
+            <input [ngClass]="{'error': isValid('password')}" type="password" matInput placeholder="Password" formControlName="password">
+        </mat-form-field>
+        <mat-form-field style="margin: 20px; width: 350px;">
+            <input [ngClass]="{'error': isValid('confirmPassword')}" type="password" matInput placeholder="Confirm Password" formControlName="confirmPassword">
+        </mat-form-field>
+        <br>
+        <span style="margin: 20px;" *ngIf="form.errors?.mismatchedFields">Passwords do not match</span>
+        <br>
+        <button style="margin: 20px;" mat-raised-button color="primary">Register</button>
+    </form>
+</mat-card>

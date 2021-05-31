@@ -24,7 +24,7 @@ export class MessagesComponent {
         var name = this.route.snapshot.params.name;
         this.webService.getMessages(name);
         this.webService.messages.subscribe(messages => {
-            this.messages =messages;
+            this.messages = messages;
         })
     }
 }
